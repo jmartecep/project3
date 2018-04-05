@@ -73,9 +73,9 @@ class ReactParser {
                     .replace(/<div adonis (.*?)=\"(.*?)\">([\s\S]*?)<\/div>/, content)
                     .replace(/{{([\s\S]*?)}}/g, '')
                     .replace(/\/\*\*([\s\S]*?)\*\*\//g, '')
-        console.log(content)
-        
-        
+                    .trim()
+                    .replace(/^/gm, '      ')
+                    
         let classPattern = /class=\"(.*?)\"/
         let match = classPattern.exec(content)[1]
         content = content.replace(classPattern, 'className="' + match + '"')  
@@ -86,6 +86,13 @@ class ReactParser {
           }
     
           jsx = jsx.replace(/<div adonis (.*?)=\"(.*?)\">([\s\S]*?)<\/div>/, content)
+
+          let returnStatement = jsx.match(/return\s\(([\s\S]*?)\)/gm)[0]
+          returnStatement = returnStatement
+                            .replace(/(\n\r*?)/gm, '')
+                            
+          console.log('-----')
+          console.log(returnStatement)
     
           fs.writeFile(reactPath, jsx, (err) => {
             if (err) throw err
