@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Hello Adonis</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Adonis</title>
+  </head>
   <body>
     <div id="example"></div>
-    @!react('components.Test')
-    <script type="text/javascript" src="/src/app.js"></script>
+    <div style="display:none">
+      @!react('components.Test', id="ss")
+    </div>
+    {{ script('src/main') }}
   </body>
 </html>

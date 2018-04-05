@@ -1,20 +1,10 @@
 const { hooks } = require('@adonisjs/ignitor')
-const { ReactParser } = require('../utils/ReactParser')
 const _ = require('lodash')
 
 
 hooks.after.providersBooted(() => {
   const View = use('View')
 
-  View.global('currentTime', function () {
-    return new Date().getTime()
-  })
-
-  View.global('react', function (component) {
-    let reactParser = new ReactParser(component)
-    
-    reactParser.parseAdonisFile()
-  })
 
   class React extends View.engine.BaseTag {
     /**
@@ -199,6 +189,5 @@ hooks.after.providersBooted(() => {
   }
 
   View.engine.tag(new React())
-
 
 })

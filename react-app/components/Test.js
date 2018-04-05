@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 class Test extends Component {
   render () {
     return (
-      <div adonis className="snail otherclass">
-  <p>this is the with more text</p>
-  
+<div adonis className="snail">
+  ww
+  <p>this is ghc hgfh ds ail more text</p>
 </div>
     )
   }
