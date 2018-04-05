@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react'
 
 class Test extends Component {
-  render() {
+  render () {
     return (
-      <div adonis>
-        <p>test</p>
-      </div>
+      <div adonis className="snail otherclass">
+  <p>this is the with more text</p>
+  
+</div>
     )
   }
 }

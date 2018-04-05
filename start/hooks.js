@@ -11,9 +11,9 @@ hooks.after.providersBooted(() => {
   })
 
   View.global('react', function (component) {
-    console.log(component)
     let reactParser = new ReactParser(component)
-    reactParser.readReactFile()
+    
+    reactParser.parseAdonisFile()
   })
 
   class React extends View.engine.BaseTag {

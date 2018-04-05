@@ -5,24 +5,39 @@ class ReactParser {
   constructor (component) {
     this.component = component
     this.reactComponentPath = path.join(__dirname, '../react-app', 'components', component + '.js')
+    this.adonisComponentPath = path.join(__dirname, '../resources/views', 'components', component + '.edge')
+    this.content = ''
   }
 
-  readReactFile () {
-    let jsx = `
-    <div adonis>
-      <p>from reactparser</p>
-    </div>
-    `
-    console.log(this.reactComponentPath)
-    fs.readFile(this.reactComponentPath, 'utf-8', function read(err, data) {
+  parseAdonisFile () {
+    let reactPath = this.reactComponentPath
+
+    fs.readFile(this.adonisComponentPath, 'utf-8', function read(err, data) {
         if (err) {
             throw err;
         }
         let content = data;
-        content = content.replace(/<div adonis>([\s\S]*?)<\/div>/, jsx)
-    
-        // Invoke the next step here however you like
-        console.log(content);   // Put all of the code here (not the best solution)
+        content = content.replace(/<div adonis (.*?)=\"(.*?)\">([\s\S]*?)<\/div>/, content).replace(/{{([\s\S]*?)}}/g, '')
+
+        
+        let classPattern = /class=\"(.*?)\"/
+        let match = classPattern.exec(content)[1]
+        content = content.replace(classPattern, 'className="' + match + '"')
+
+        fs.readFile(reactPath, 'utf-8', function read(err, jsx) {
+          if (err) {
+              throw err;
+          }
+
+          console.log(content)
+
+          jsx = jsx.replace(/<div adonis (.*?)=\"(.*?)\">([\s\S]*?)<\/div>/, content)
+
+          fs.writeFile(reactPath, jsx, (err) => {
+            if (err) throw err
+          })
+        })
+        
     });
   }
 }
