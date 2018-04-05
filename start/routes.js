@@ -15,4 +15,7 @@
 
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+// Route.on('/').render('welcome')
+Route.any("*", ({ view, response }) => (
+  view.render('welcome')
+))
